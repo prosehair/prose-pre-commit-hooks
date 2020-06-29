@@ -15,7 +15,7 @@ Add this to your `.pre-commit-config.yaml`
 -   repo: https://github.com/prosehair/prose-pre-commit-hooks
     rev: v0.0.1  # Use the ref you want to point at
     hooks:
-    -   id: trailing-whitespace
+    -   id: manage-airflow-dag-task-id
 ```
 
 ## Hooks available
@@ -27,4 +27,4 @@ Enforce the specification of version in dag filename and ensure the consistency 
 
 If you'd like to use these hooks, they're also available as a standalone package.
 
-Simply `pip install pre-commit-hooks`
+Simply `pip install prose-pre-commit-hooks`
