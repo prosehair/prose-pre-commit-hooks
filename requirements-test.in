@@ -3,3 +3,5 @@ faker
 pytest-cov
 pytest-flake8
 pytest-sugar
+covdefaults
+coverage

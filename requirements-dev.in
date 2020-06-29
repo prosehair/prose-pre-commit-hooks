@@ -30,3 +30,4 @@ pytest-sugar
 python-decouple
 setproctitle
 sphinx
+versioneer

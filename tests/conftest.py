@@ -1,6 +1,6 @@
 import pytest
 
-from pre_commit_hooks.utils import cmd_output
+from prose_pre_commit_hooks.utils import cmd_output
 
 
 @pytest.fixture

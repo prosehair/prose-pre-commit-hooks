@@ -45,11 +45,11 @@ lint-fix:  ## Try to automatically fix lint error
 
 
 test: ## Run the test suite
-	LOG_LEVEL=INFO venv/bin/python -m pytest -vv --capture=no --cov=prose_pre_commit_hooks --cov-report=term-missing $$TEST_OPTIONS tests
+	LOG_LEVEL=INFO venv/bin/python -m pytest -vv --capture=no  --cov-fail-under 80 --cov=prose_pre_commit_hooks --cov-report=term-missing $$TEST_OPTIONS tests
 
 
 test-cov: ## Annotate source code with coverage information
-	venv/bin/python -m pytest --cov=prose_pre_commit_hooks --cov-report=html $$TEST_OPTIONS tests
+	venv/bin/python -m pytest --cov=prose_pre_commit_hooks --cov-fail-under 80 --cov-report=html $$TEST_OPTIONS tests
 
 
 clean: ## Purge temporary files

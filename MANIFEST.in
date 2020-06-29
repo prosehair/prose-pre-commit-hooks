@@ -1,0 +1,2 @@
+include versioneer.py
+include prose_pre_commit_hooks/_version.py
