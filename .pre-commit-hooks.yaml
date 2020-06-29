@@ -1,7 +1,7 @@
 -   id: manage-airflow-dag-task-id
     name: airflow dag and task consistency hook
     description: airflow dag and task consistency hook
-    # entry: pre-commit-hooks-removed autopep8-wrapper autopep8 https://github.com/pre-commit/mirrors-autopep8
+    entry: manage-airflow-dag-task-id
     language: python
     always_run: true
     pass_filenames: true
