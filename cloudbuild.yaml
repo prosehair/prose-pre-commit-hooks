@@ -1,0 +1,22 @@
+# Build and deploy prose-etl-utils to prose pypi
+
+steps:
+  - name: gcr.io/$PROJECT_ID/prose-pypi-tools:latest
+    id: BUILD
+    entrypoint: "python"
+    args: ["setup.py", "sdist"]
+    waitFor: ["-"]
+
+  - name: gcr.io/$PROJECT_ID/prose-pypi-tools:latest
+    id: PUSH_TO_PROSE_PYPI
+    entrypoint: "twine"
+    args:
+      [
+        "upload",
+        "/workspace/dist/*",
+        "-u", "$_PROSE_PYPI_USERNAME",
+        "-p", "$_PROSE_PYPI_PASSWORD",
+        "--repository-url", "$_PIP_PROSE_PYPI",
+        "--verbose",
+      ]
+    waitFor: ["BUILD"]
