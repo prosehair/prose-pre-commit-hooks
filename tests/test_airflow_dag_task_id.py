@@ -4,17 +4,25 @@ import os.path as op
 import shutil
 import tempfile
 import filecmp
+import logging
 
 import pytest
 import difflib
 
+from decouple import config
+
 from prose_pre_commit_hooks.manage_airflow_dag_task_id import main
+
+log_level = config('LOG_LEVEL', default='DEBUG')
+logging.basicConfig(level=log_level)
 
 
 def create_temporary_copy(path):
     temp_dir = tempfile.gettempdir()
     temp_path = os.path.join(temp_dir, op.basename(path))
     shutil.copy2(path, temp_path)
+    logging.debug('Working in %s', temp_dir)
+    print(temp_path)
     return temp_path
 
 

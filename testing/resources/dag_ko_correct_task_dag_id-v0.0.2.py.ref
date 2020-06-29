@@ -3,6 +3,7 @@ from functools import partial
 
 from airflow import models
 from airflow.operators.bash_operator import BashOperator
+from airflow.operators.dummy_operator import DummyOperator
 from prose_airflow_plugin.callback_functions import task_fail_slack_alert
 
 YESTERDAY = datetime.datetime.now() - datetime.timedelta(days=1)
@@ -37,3 +38,5 @@ with models.DAG(
         dag=dag,
         on_failure_callback=_task_fail_slack_alert,
     )
+
+    t_end = DummyOperator(task_id='prose_data_end-v0.0.2')
