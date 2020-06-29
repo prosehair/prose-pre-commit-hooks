@@ -1,4 +1,7 @@
 
+[![CircleCI](https://circleci.com/gh/prosehair/prose-pre-commit-hooks.svg?style=shield&circle-token=7effb344aa53d658f1cf4df1a907ffbd01a3c338)](https://circleci.com/gh/prosehair/prose-pre-commit-hooks)
+
+
 prose-pre-commit-hooks
 ======================
 
