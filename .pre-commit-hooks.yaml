@@ -6,4 +6,4 @@
     always_run: true
     pass_filenames: true
     types: [file, python]
-    files: ^dag_
+    files: (^|/)dag_.+\.py
