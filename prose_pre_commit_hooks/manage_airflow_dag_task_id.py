@@ -71,7 +71,7 @@ def _update_task_id(fname: str, fcontent: List[str]) -> int:
     m = re.match(rf"(.*){REGEX_SEMVER_V}", dag_id)
     version = m.group(2)
 
-    r = re.compile(r"^(.*task_id\s*\=\s*)(?:\'|\")(.*)(?:\'|\")\s*(\,.*)")
+    r = re.compile(r"^(.*task_id\s*\=\s*)(?:\'|\")(.*)(?:\'|\")\s*(\,)?(.*)")
 
     out = []
     for line in fcontent:
@@ -82,7 +82,7 @@ def _update_task_id(fname: str, fcontent: List[str]) -> int:
 
         line_prefix = m.group(1)
         task_id = m.group(2)
-        line_suffix = m.group(3)
+        line_suffix = ''.join([m.group(i) for i in range(3, 5) if m.group(i)])
 
         # detect version in task_id
         m = re.match(rf"(.*)-{REGEX_SEMVER_V}", task_id)
