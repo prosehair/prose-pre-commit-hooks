@@ -22,6 +22,7 @@ pytest-cov==2.10.0        # via -r requirements-test-full.in
 pytest-flake8==1.0.6      # via -r requirements-test-full.in
 pytest-sugar==0.9.3       # via -r requirements-test-full.in
 python-dateutil==2.8.1    # via faker
+python-decouple==3.3      # via -r requirements-test-full.in
 pyyaml==5.3.1             # via -r requirements-test-full.in
 six==1.15.0               # via packaging, python-dateutil
 termcolor==1.1.0          # via pytest-sugar
