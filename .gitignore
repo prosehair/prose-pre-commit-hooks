@@ -4,6 +4,7 @@
 Sandbox/
 tmp/
 .vscode/
+prose_pre_commit_hooks_ssh_key*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

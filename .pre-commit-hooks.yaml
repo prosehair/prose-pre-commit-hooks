@@ -7,3 +7,12 @@
     pass_filenames: true
     types: [file, python]
     files: (^|/)dag_.+\.py
+
+-   id: add-clubhouse-ticket
+    name: add cluchouse ticket ref
+    description: Automatically append [chXXX] to the commit message
+    entry: add-clubhouse-ticket
+    language: python
+    stages: [prepare-commit-msg]
+    always_run: true
+    verbose: true

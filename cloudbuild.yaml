@@ -1,11 +1,74 @@
-# Build and deploy prose-etl-utils to prose pypi
+# Build and deploy prose-pre-commit-hooks to prose pypi
 
+# Access the id_github file from Secret Manager
 steps:
+  - name: gcr.io/cloud-builders/gcloud
+    id: FETCH_SECRET
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud secrets versions access latest \
+        --secret=prose-pre-commit-hooks-deploy-key > /root/.ssh/id_github
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+
+  # Set up git with key and domain
+  - name: "gcr.io/cloud-builders/git"
+    id: SSH_SETUP
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        chmod 600 /root/.ssh/id_github
+        cat <<EOF >/root/.ssh/config
+        Hostname github.com
+        IdentityFile /root/.ssh/id_github
+        EOF
+        ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+
+  ## Connect to the repository
+  - name: "gcr.io/cloud-builders/git"
+    id: CLONE
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        mkdir package \
+        && cd package \
+        && git clone --recurse-submodules git@github.com:prosehair/prose-pre-commit-hooks.git
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+
+  - name: "gcr.io/cloud-builders/git"
+    id: GIT_ARCHIVE
+    dir: "package/prose-pre-commit-hooks"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        mkdir /workspace/archive \
+        && git archive --prefix=prose-pre-commit-hooks-${TAG_NAME}/ -o /workspace/archive/prose-pre-commit-hooks-${TAG_NAME}.tar.gz $TAG_NAME \
+        && cd /workspace/archive \
+        && tar xvf prose-pre-commit-hooks-${TAG_NAME}.tar.gz
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
+
   - name: gcr.io/$PROJECT_ID/prose-pypi-tools:latest
     id: BUILD
-    entrypoint: "python"
-    args: ["setup.py", "sdist"]
-    waitFor: ["-"]
+    dir: "archive/prose-pre-commit-hooks-$TAG_NAME"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        python setup.py sdist
+    waitFor: ["GIT_ARCHIVE"]
 
   - name: gcr.io/$PROJECT_ID/prose-pypi-tools:latest
     id: PUSH_TO_PROSE_PYPI
@@ -13,10 +76,13 @@ steps:
     args:
       [
         "upload",
-        "/workspace/dist/*",
-        "-u", "$_PROSE_PYPI_USERNAME",
-        "-p", "$_PROSE_PYPI_PASSWORD",
-        "--repository-url", "$_PIP_PROSE_PYPI",
+        "/workspace/archive/prose-pre-commit-hooks-${TAG_NAME}/dist/*",
+        "-u",
+        "$_PROSE_PYPI_USERNAME",
+        "-p",
+        "$_PROSE_PYPI_PASSWORD",
+        "--repository-url",
+        "$_PIP_PROSE_PYPI",
         "--verbose",
       ]
     waitFor: ["BUILD"]
