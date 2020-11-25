@@ -1,6 +1,7 @@
 covdefaults
 coverage
 faker
+gitpython
 pytest
 pytest-cov
 pytest-flake8

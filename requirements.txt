@@ -4,3 +4,6 @@
 #
 #    pip-compile --extra-index-url='https://prose:****@pypi.prose.com' --no-emit-index-url --output-file=requirements.txt requirements.in
 #
+gitdb==4.0.5              # via gitpython
+gitpython==3.1.11         # via -r requirements.in
+smmap==3.0.4              # via gitdb

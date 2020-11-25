@@ -26,6 +26,9 @@ Add this to your `.pre-commit-config.yaml`
 #### `manage-airflow-dag-task-id`
 Enforce the specification of version in dag filename and ensure the consistency between the dag file name, the dag_id and the task_id(s).
 
+#### `add-clubhouse-ticket`
+Add clubhouse tocket to the commit message if available from branch and is not already specified.
+
 ## As a standalone package
 
 If you'd like to use these hooks, they're also available as a standalone package.

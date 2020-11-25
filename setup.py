@@ -52,7 +52,8 @@ setup(
     cmdclass=cmdclass,
     entry_points={
         'console_scripts': [
-            'manage-airflow-dag-task-id = prose_pre_commit_hooks.manage_airflow_dag_task_id:main'
+            'manage-airflow-dag-task-id = prose_pre_commit_hooks.manage_airflow_dag_task_id:main',
+            'add-clubhouse-ticket = prose_pre_commit_hooks.add_clubhouse_ticket_num:main',
         ],
     },
 )
