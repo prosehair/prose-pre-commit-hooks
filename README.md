@@ -29,6 +29,9 @@ Enforce the specification of version in dag filename and ensure the consistency 
 #### `add-clubhouse-ticket`
 Add clubhouse tocket to the commit message if available from branch and is not already specified.
 
+### `check-prose-data-blog-rmd-file-pattern`
+Check that the Rmd in the prose-data-blog follow the pattern yyyy-mm-dd-ch0000-title.Rmd
+
 ## As a standalone package
 
 If you'd like to use these hooks, they're also available as a standalone package.
