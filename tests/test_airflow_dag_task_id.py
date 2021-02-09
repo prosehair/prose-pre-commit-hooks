@@ -22,7 +22,6 @@ def create_temporary_copy(path):
     temp_path = os.path.join(temp_dir, op.basename(path))
     shutil.copy2(path, temp_path)
     logging.debug('Working in %s', temp_dir)
-    print(temp_path)
     return temp_path
 
 
@@ -48,7 +47,10 @@ def test_main(filename, expected_retval):
 
 @pytest.mark.parametrize(
     ("filename", "expected_retval"),
-    (("dag_ok-v0.0.1.py", 0), ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),),
+    (
+        ("dag_ok-v0.0.1.py", 0),
+        ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),
+    ),
 )
 def test_dry_run(filename, expected_retval):
     f_path = get_resource_path(filename)
@@ -60,7 +62,10 @@ def test_dry_run(filename, expected_retval):
 
 @pytest.mark.parametrize(
     ("filename", "expected_retval"),
-    (("dag_ok-v0.0.1.py", 0), ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),),
+    (
+        ("dag_ok-v0.0.1.py", 0),
+        ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),
+    ),
 )
 def test_no_inplace(filename, expected_retval):
     f_path = get_resource_path(filename)

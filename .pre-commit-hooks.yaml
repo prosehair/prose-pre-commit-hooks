@@ -26,3 +26,21 @@
   pass_filenames: true
   types: [file, python]
   files: content/blog/*.Rmd
+
+- id: check-prose-data-blog-commit-msg
+  name: check prose-data-blog commit message pattern
+  description: Check the pattern of commit message for prose-data-blog
+  entry: check-prose-data-blog-commit-msg
+  language: python
+  stages: [commit-msg]
+  always_run: true
+  verbose: true
+
+- id: check-commit-msg
+  name: check commit message pattern
+  description: Check the pattern of commit message
+  entry: check-commit-msg
+  language: python
+  stages: [commit-msg]
+  always_run: true
+  verbose: true
