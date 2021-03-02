@@ -54,6 +54,9 @@ setup(
         'console_scripts': [
             'manage-airflow-dag-task-id = prose_pre_commit_hooks.manage_airflow_dag_task_id:main',
             'add-clubhouse-ticket = prose_pre_commit_hooks.add_clubhouse_ticket_num:main',
+            'check-commit-msg = prose_pre_commit_hooks.check_commit_msg:main',
+            'check-prose-data-blog-rmd-file-pattern = prose_pre_commit_hooks.check_prose_data_blog_rmd_file:main',
+            'check-prose-data-blog-commit-msg = prose_pre_commit_hooks.check_prose_data_blog_commit_msg:main',
         ],
     },
 )
