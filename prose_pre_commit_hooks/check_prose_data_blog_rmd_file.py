@@ -28,6 +28,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     retv = 0
 
     for filename in args.filenames:
+        print(filename)
         retv |= _validate_filename(filename)
 
     return retv
