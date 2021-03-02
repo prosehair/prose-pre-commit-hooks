@@ -35,12 +35,12 @@ def main() -> int:
         return 0
 
     if branch in ('master', 'main'):
-        print('Do not commit on the {branch} branch')
+        print(f'Do not commit on the {branch} branch')
         return 1
 
     m = re.match(REGEX_CLUBHOUSE_BRANCH, branch)
     if not m:
-        print('No clubhouse ticket detected in {branch}')
+        print(f'No clubhouse ticket detected in {branch}')
         return 0
 
     ch_ticket = m.group(1)
