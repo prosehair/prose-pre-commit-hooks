@@ -1,18 +1,46 @@
--   id: manage-airflow-dag-task-id
-    name: airflow dag and task consistency hook
-    description: airflow dag and task consistency hook
-    entry: manage-airflow-dag-task-id
-    language: python
-    always_run: true
-    pass_filenames: true
-    types: [file, python]
-    files: (^|/)dag_.+\.py
+- id: manage-airflow-dag-task-id
+  name: airflow dag and task consistency hook
+  description: airflow dag and task consistency hook
+  entry: manage-airflow-dag-task-id
+  language: python
+  always_run: true
+  pass_filenames: true
+  types: [file, python]
+  files: (^|/)dag_.+\.py
 
--   id: add-clubhouse-ticket
-    name: add cluchouse ticket ref
-    description: Automatically append [chXXX] to the commit message
-    entry: add-clubhouse-ticket
-    language: python
-    stages: [prepare-commit-msg]
-    always_run: true
-    verbose: true
+- id: add-clubhouse-ticket
+  name: add cluchouse ticket ref
+  description: Automatically append [chXXX] to the commit message
+  entry: add-clubhouse-ticket
+  language: python
+  stages: [prepare-commit-msg]
+  always_run: true
+  verbose: true
+
+- id: check-prose-data-blog-rmd-file-pattern
+  name: check prose-data-blog filename pattern
+  description: Check that the blog Rmd follow the pattern YYYY-MM-DD_ch0000_XXX.Rmd
+  entry: check-prose-data-blog-rmd-file-pattern
+  language: python
+  always_run: true
+  pass_filenames: true
+  types: [file]
+  files: "(.*)content/blog/(.*)\\.Rmd"
+
+- id: check-prose-data-blog-commit-msg
+  name: check prose-data-blog commit message pattern
+  description: Check the pattern of commit message for prose-data-blog
+  entry: check-prose-data-blog-commit-msg
+  language: python
+  stages: [commit-msg]
+  always_run: true
+  verbose: true
+
+- id: check-commit-msg
+  name: check commit message pattern
+  description: Check the pattern of commit message
+  entry: check-commit-msg
+  language: python
+  stages: [commit-msg]
+  always_run: true
+  verbose: true
