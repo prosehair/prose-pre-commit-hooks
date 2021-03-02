@@ -12,7 +12,7 @@ def _validate_filename(fname: str) -> int:
     m = re.match(REGEX_BLOG_REPORT, rmd_filename)
     if not m:
         print(  # noqa T001
-            f"'{rmd_filename}' doesnt not follow the pattern yyyy-mm-dd-chXXXX-Title.Rmd"
+            f"'{fname}' doesnt not follow the pattern yyyy-mm-dd-chXXXX-Title.Rmd"
         )
         return 1
 
