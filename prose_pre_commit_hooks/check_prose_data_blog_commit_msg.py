@@ -9,25 +9,45 @@ examples = """+ 61c8ca9 blog: shampoo satisfaction analysis [ch1234]
 """
 
 
+ALLOWED_PREFIX = (
+    'blog',
+    'build',
+    'data',
+    'docs',
+    'feat',
+    'fix',
+    'perf',
+    'refactor',
+    'style',
+    'test',
+    'chore',
+    'revert',
+    'review',
+)
+
+
 def _validate_commit_msg(msg: str) -> int:
     # example:
     # feat(apikey): added the ability to add api key to configuration
-    pattern = r'(blog|build|docs|feat|fix|perf|refactor|style|test|chore|revert|review)(\([\w\-]+\))?:\s.*'
+    pattern = rf'({"|".join(ALLOWED_PREFIX)})(\([\w\-]+\))?:\s.*'
     m = re.match(pattern, msg)
     if not m:
-        print("\nCOMMIT FAILED!")
+        print('\nCOMMIT FAILED!')
+        print(
+            f'\nPrefix must be specified, and found among: {", ".join(ALLOWED_PREFIX)}.'
+        )
         print(
             "\nPlease enter commit message in the conventional format and try to commit again. Examples:"
         )
         print("\n" + examples)
         return 1
 
-    pattern = r'(blog|feat|fix|review)(\([\w\-]+\))?:\s.*'
+    # raise Exception if missing clubhouse ticket number
+    pattern = r'(blog|data|feat|fix|review)(\([\w\-]+\))?:\s.*'
     m = re.match(pattern, msg)
     if not m:
         return 0
 
-    # raise Exception if missing clubhouse ticket number
     m = re.match(rf'{pattern}\s\[ch\d+\]', msg)
     if not m:
         print("\nCOMMIT FAILED!")
