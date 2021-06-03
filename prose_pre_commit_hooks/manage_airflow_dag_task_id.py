@@ -51,6 +51,13 @@ def _update_dag_id(fname: str, fcontent: List[str]) -> int:
         dag_id = m.group(2)
         line_suffix = m.group(3)
 
+        # Extract function argument name (avoiding confusion between task_id & external_task_id)
+        argument_name_reg = re.compile(r"[^_]+dag_id\s*\=")
+        argument_name = argument_name_reg.findall(line_prefix)
+        if not argument_name:
+            out.append(line)
+            continue
+
         if dag_id != dag_id_fn:
             retv = 1
             print(
@@ -84,6 +91,13 @@ def _update_task_id(fname: str, fcontent: List[str]) -> int:
         task_id = m.group(2)
         line_suffix = ''.join([m.group(i) for i in range(3, 5) if m.group(i)])
 
+        # Extract function argument name (avoiding confusion between task_id & external_task_id)
+        argument_name_reg = re.compile(r"[^_]+task_id\s*\=")
+        argument_name = argument_name_reg.findall(line_prefix)
+        if not argument_name:
+            out.append(line)
+            continue
+
         # detect version in task_id
         m = re.match(rf"(.*)-{REGEX_SEMVER_V}", task_id)
 
@@ -104,7 +118,7 @@ def _update_task_id(fname: str, fcontent: List[str]) -> int:
             retv = 1
             task_id_updated = f"'{task_id_base}-{version}'"
             print(
-                f"Version mismatch for {task_id}. \n  => Updating to {task_id_updated}"
+                f"Version mismatch for {task_id}. \n  => Updating to {task_id_updated} (from {line_prefix})"
             )
             line = f"{line_prefix}{task_id_updated}{line_suffix}{os.linesep}"
             out.append(line)

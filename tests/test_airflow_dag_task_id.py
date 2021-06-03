@@ -21,7 +21,7 @@ def create_temporary_copy(path):
     temp_dir = tempfile.gettempdir()
     temp_path = os.path.join(temp_dir, op.basename(path))
     shutil.copy2(path, temp_path)
-    logging.debug('Working in %s', temp_dir)
+    logging.debug('Working in \'%s\', on \'%s\'', temp_dir, temp_path)
     return temp_path
 
 
@@ -31,6 +31,7 @@ def create_temporary_copy(path):
         ("dag_ok-v0.0.1.py", 0),
         ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),
         ("dag_ko_wrong_case_version-V0.0.1.py", 1),
+        ("dag_ko_correct_task_dag_id_with_external-v0.0.2.py", 1),
     ),
 )
 def test_main(filename, expected_retval):
@@ -50,6 +51,7 @@ def test_main(filename, expected_retval):
     (
         ("dag_ok-v0.0.1.py", 0),
         ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),
+        ("dag_ko_correct_task_dag_id_with_external-v0.0.2.py", 1),
     ),
 )
 def test_dry_run(filename, expected_retval):
@@ -65,6 +67,7 @@ def test_dry_run(filename, expected_retval):
     (
         ("dag_ok-v0.0.1.py", 0),
         ("dag_ko_correct_task_dag_id-v0.0.2.py", 1),
+        ("dag_ko_correct_task_dag_id_with_external-v0.0.2.py", 1),
     ),
 )
 def test_no_inplace(filename, expected_retval):
