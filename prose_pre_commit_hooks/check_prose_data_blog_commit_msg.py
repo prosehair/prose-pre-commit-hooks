@@ -1,7 +1,7 @@
 import re
 import sys
 
-examples = """+ 61c8ca9 blog: shampoo satisfaction analysis [ch1234]
+examples = """+ 61c8ca9 blog: shampoo satisfaction analysis [sc-1234]
 + b818120 feat: add overall satisfaction per segment [ch1234]
 + b818120 feat(capucine): add overall satisfaction per segment [ch1234]
 + d65ayu3 review: according to camille feedback [ch1234]
@@ -48,7 +48,7 @@ def _validate_commit_msg(msg: str) -> int:
     if not m:
         return 0
 
-    m = re.match(rf'{pattern}\s\[ch\d+\]', msg)
+    m = re.match(rf'{pattern}\s\[(ch|sc\-)\d+\]', msg)
     if not m:
         print("\nCOMMIT FAILED!")
         print(
