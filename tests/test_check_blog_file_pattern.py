@@ -21,6 +21,7 @@ logging.basicConfig(level=log_level)
     ("filename", "expected_retval"),
     (
         ("content/blog/2021-01-01-ch000000-test-rmd_ok01.Rmd", 0),
+        ("content/blog/2021-01-01-sc-000000-test-rmd_ok01.Rmd", 0),
         ("content/blog/2021-01-01-test-rmd_ok01.Rmd", 1),
     ),
 )

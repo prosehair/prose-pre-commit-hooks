@@ -3,7 +3,9 @@ import os.path as op
 import re
 from typing import Optional, Sequence
 
-REGEX_BLOG_REPORT = r"^([2]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-ch\d+-.*\.Rmd$"
+REGEX_BLOG_REPORT = (
+    r"^([2]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-(ch|sc-)\d+-.*\.Rmd$"
+)
 
 
 def _validate_filename(fname: str) -> int:
@@ -12,7 +14,7 @@ def _validate_filename(fname: str) -> int:
     m = re.match(REGEX_BLOG_REPORT, rmd_filename)
     if not m:
         print(  # noqa T001
-            f"'{fname}' doesnt not follow the pattern yyyy-mm-dd-chXXXX-Title.Rmd"
+            f"'{fname}' doesnt not follow the pattern yyyy-mm-dd-(ch|sc-)XXXX-Title.Rmd"
         )
         return 1
 
