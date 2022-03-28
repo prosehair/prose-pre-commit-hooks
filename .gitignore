@@ -1,5 +1,4 @@
 # Custom
-*.ipynb
 .idea
 Sandbox/
 tmp/
