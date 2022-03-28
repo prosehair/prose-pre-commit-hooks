@@ -38,6 +38,9 @@ Check the pattern of prose-data-blog related commit message
 ### `check-prose-data-blog-rmd-file-pattern`
 Check that the Rmd in the prose-data-blog follow the pattern yyyy-mm-dd-ch0000-title.Rmd
 
+### `check-jupyter-notebooks-cells-ran-in-a-row`
+Check that all the jupyter notebooks are executed in a row
+
 ## As a standalone package
 If you'd like to use these hooks, they're also available as a standalone package.
 
