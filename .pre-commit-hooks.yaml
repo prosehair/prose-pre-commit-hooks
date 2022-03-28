@@ -44,3 +44,13 @@
   stages: [commit-msg]
   always_run: true
   verbose: true
+
+- id : check-jupyter-notebook-cells-ran-in-a-row
+  name: check jupyter notebook to have been ran in a row.
+  entry: check-jupyter-notebook-cells-ran-in-a-row
+  language: python
+  always_run: true
+  minimum_pre_commit_version: 2.9.2
+  require_serial: true
+  types_or: [python, pyi, jupyter]
+  verbose: true

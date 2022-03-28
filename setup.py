@@ -57,6 +57,7 @@ setup(
             'check-commit-msg = prose_pre_commit_hooks.check_commit_msg:main',
             'check-prose-data-blog-rmd-file-pattern = prose_pre_commit_hooks.check_prose_data_blog_rmd_file:main',
             'check-prose-data-blog-commit-msg = prose_pre_commit_hooks.check_prose_data_blog_commit_msg:main',
+            'check-jupyter-notebook-cells-ran-in-a-row = prose_pre_commit_hooks.check_jupyter_notebook_cells_ran_in_a_row:main',
         ],
     },
 )
