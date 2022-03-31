@@ -11,21 +11,23 @@ import difflib
 
 from decouple import config
 
-from prose_pre_commit_hooks.check_jupyter_notebook_cells_ran_in_a_row import main
+from prose_pre_commit_hooks.check_jupyter_notebook_cells_ran_in_a_row import (
+    get_exit_status,
+)
 
 log_level = config('LOG_LEVEL', default='DEBUG')
 logging.basicConfig(level=log_level)
 
 
 @pytest.mark.parametrize(
-    ("filename", "expected_retval"),
+    ("filename", "expected_status_code"),
     (
         ("bad_notebook.ipynb", 1),
         ("good_notebook.ipynb", 0),
         ("broken_notebook.ipynb", 1),
     ),
 )
-def test_main(filename, expected_retval):
+def test_get_exit_status(filename, expected_status_code):
     f_path = get_resource_path(filename)
-    ret = main([f_path])
-    assert ret == expected_retval
+    ret = get_exit_status([f_path])
+    assert ret == expected_status_code

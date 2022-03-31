@@ -3,7 +3,7 @@ import json
 from typing import Optional, Sequence
 
 
-def _check_code_cell_executed(notebook_path: str):
+def _check_code_cell_executed(notebook_path: str) -> int:
     print(f"Checking {notebook_path}")
     with open(notebook_path) as f:
         json_nb = json.load(f)
@@ -21,7 +21,7 @@ def _check_code_cell_executed(notebook_path: str):
         return 1
 
 
-def _check_nb_dict(nb_dict):
+def _check_nb_dict(nb_dict: dict) -> bool:
     execution_count = 1
     for cell in nb_dict['cells']:
         if cell['cell_type'] == 'code':
@@ -37,19 +37,13 @@ def _check_nb_dict(nb_dict):
     return True
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def get_exit_status(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("filenames", nargs="*", help="Filenames to fix")
 
     args = parser.parse_args(argv)
-
-    retv = 0
-
-    for filename in args.filenames:
-        retv |= _check_code_cell_executed(filename)
-
-    return retv
+    return int(any(_check_code_cell_executed(filename) for filename in args.filenames))
 
 
 if __name__ == "__main__":
-    exit(main())
+    exit(get_exit_status())
