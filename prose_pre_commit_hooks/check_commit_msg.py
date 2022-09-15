@@ -9,16 +9,33 @@ examples = """+ 61c8ca9 fix: navbar not responsive on mobile
 + dfdc715 feat(auth): added social login using twitter
 """
 
+ALLOWED_PREFIX = (
+    'build',
+    'ci',
+    'docs',
+    'feat',
+    'fix',
+    'perf',
+    'refactor',
+    'style',
+    'test',
+    'chore',
+    'revert',
+)
+
 
 def _validate_commit_msg(msg: str) -> int:
     # example:
     # feat(apikey): added the ability to add api key to configuration
-    pattern = r'(build|ci|docs|feat|fix|perf|refactor|style|test|chore|revert)(\([\w\-]+\))?:\s.*'
+    pattern = rf'({"|".join(ALLOWED_PREFIX)})(\([\w\-]+\))?:\s.*'
     filename = sys.argv[1]
     ss = open(filename, 'r').read()
     m = re.match(pattern, ss)
     if not m:
         print("\nCOMMIT FAILED!")
+        print(
+            f'\nPrefix must be specified, and found among: {", ".join(ALLOWED_PREFIX)}.'
+        )
         print(
             "\nPlease enter commit message in the conventional format and try to commit again. Examples:"
         )
