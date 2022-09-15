@@ -11,7 +11,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            make init-ci
+            python3 -m venv venv
+            venv/bin/pip install --disable-pip-version-check -U pip
+            venv/bin/pip install -r requirements-test.txt
       - save_cache:
           key: prose-pre-commit-hooks-env-{{ checksum "requirements-test.txt" }}
           paths:
@@ -41,7 +43,6 @@ jobs:
           command: |
             python3 -m venv venv
             venv/bin/python setup.py verify
-
 
 workflows:
   version: 2
